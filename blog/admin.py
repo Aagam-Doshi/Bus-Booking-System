@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .models import Bus,Customer,Schedule
+from django.contrib.auth.admin import UserAdmin
+from .models import Bus,Schedule,MyUser
 
 
 admin.site.register(Bus)
 admin.site.register(Schedule)
-admin.site.register(Customer)
+admin.site.register(MyUser,UserAdmin)
+# admin.site.register(Customer)
 
 
 
