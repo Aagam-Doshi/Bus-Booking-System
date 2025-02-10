@@ -7,6 +7,8 @@ class Bus(models.Model):
     startDest=models.CharField(max_length=100)
     endDest=models.CharField(max_length=100)
     maxCap=models.IntegerField()
+    busFare=models.PositiveIntegerField(default=0)
+
 
 
 
@@ -23,6 +25,7 @@ class Schedule(models.Model):
     arrTime=models.DateTimeField()
     busId=models.ForeignKey(Bus,on_delete=models.CASCADE)
     id=models.AutoField(primary_key=True)
+    seatsRemaining=models.IntegerField(default=0)
 
 
 class Booking(models.Model):
