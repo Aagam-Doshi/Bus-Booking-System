@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
+
 class Bus(models.Model):
     busId=models.CharField(max_length=10,primary_key=True)
     startDest=models.CharField(max_length=100)
@@ -17,6 +18,12 @@ class Bus(models.Model):
 #     id=models.TextField(primary_key=True)
 class MyUser(AbstractUser):
     walletAmt=models.IntegerField(default=0)
+    # email = models.EmailField(unique=True)
+    # mobile_number = models.CharField(max_length=15, unique=True)
+    # is_email_verified = models.BooleanField(default=False)
+    # is_mobile_verified = models.BooleanField(default=False)
+    # email_otp = models.CharField(max_length=6, null=True, blank=True)
+    # mobile_otp = models.CharField(max_length=6, null=True, blank=True)
 
 
 
@@ -32,6 +39,7 @@ class Booking(models.Model):
     pasNam=models.CharField(max_length=45)
     customer=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL,null=True)
     schedule=models.ForeignKey(Schedule,on_delete=models.SET_NULL,null=True)
+
 
 
 
