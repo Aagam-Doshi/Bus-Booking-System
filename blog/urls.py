@@ -11,7 +11,8 @@ urlpatterns = [
     path('browsedetail/',views.browse_with_details),
     
     path('register',views.register,name='register'),
-    path('login',views.login,name='login'),
+    path('login/',views.login,name='login'),
+    path('logout/',views.logout_view,name='logout'),
     # path('register/', views.register, name='register'),
     # path('verify_otp/<int:user_id>/', views.verify_otp, name='verify_otp'),
     

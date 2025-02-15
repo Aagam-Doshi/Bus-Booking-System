@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # from .utils import generate_otp, verify_otp
 # from django.core.mail import send_mail
@@ -65,11 +67,31 @@ def browse_with_details(request):
     return render(request,'blog/base.html',{"schedules":listOfSchedule})
 
 
-
+@login_required(login_url='/login')
 def booking(request,id):
-    cart=request.GET.get('booking')
-    print(id)
-    return render(request,'blog/register.html')
+    
+
+    print (id)
+    detail=Schedule.objects.get(id=id)
+    seat_remain=detail.seatsRemaining
+
+    context={'id':id,
+        'seat_remain':seat_remain ,
+
+
+        }
+    
+
+    if(request.method=='POST'):
+        passname=request.POST.get('passname')
+        #wallet check and reduce should be here
+        booking_obj=Booking.objects.create(pasNam=passname,customer=request.user,schedule=detail)
+        if booking_obj is not None:
+            return redirect("/")#later redirect to upcoming journeys
+
+
+
+    return render(request,'blog/booking.html',context)
 
 def login(request):
     if(request.method=='POST'):
@@ -86,6 +108,10 @@ def login(request):
     
     return render(request,'blog/login.html')
 
+
+def logout_view(request):
+    logout(request)
+    return render(request,'blog/home.html')
 
 
 
