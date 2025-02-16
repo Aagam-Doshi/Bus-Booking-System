@@ -17,7 +17,7 @@ class Bus(models.Model):
 #     name=models.TextField()
 #     id=models.TextField(primary_key=True)
 class MyUser(AbstractUser):
-    walletAmt=models.IntegerField(default=0)
+    walletAmt=models.IntegerField(default=0,null=False)
     # email = models.EmailField(unique=True)
     # mobile_number = models.CharField(max_length=15, unique=True)
     # is_email_verified = models.BooleanField(default=False)
@@ -30,7 +30,7 @@ class MyUser(AbstractUser):
 class Schedule(models.Model):
     depTime=models.DateTimeField()
     arrTime=models.DateTimeField()
-    busId=models.ForeignKey(Bus,on_delete=models.CASCADE)
+    busId=models.ForeignKey(Bus,on_delete=models.CASCADE)#it is not busid it is bus
     id=models.AutoField(primary_key=True)
     seatsRemaining=models.IntegerField(default=0)
 
