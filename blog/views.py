@@ -3,6 +3,7 @@ from .models import *
 from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import datetime
 
 # from .utils import generate_otp, verify_otp
 # from django.core.mail import send_mail
@@ -46,22 +47,18 @@ def browse_with_details(request):
             "busId":bus.busId,
             "id": schedule.id,
             "depTime": schedule.depTime.strftime("%Y-%m-%d %H:%M:%S"),
-            "arrTime": schedule.arrTime.strftime("%Y-%m-%d %H:%M:%S"),
+            "arrTime": schedule.arrTime,
             "seatsRemaining": schedule.seatsRemaining
             }
+            
             listOfSchedule.append(schedule_dict)
 
+    listOfSchedule.sort(key=lambda x:x['arrTime'])
+    for schedule in listOfSchedule:
+        schedule['arrTime']=schedule['arrTime'].strftime("%Y-%m-%d %H:%M:%S")
+    
+
     print(listOfSchedule)
-            
-        
-        
-    
-    
-    # print(schedules,schedules_list)
-    # context={
-    #     'deptime':str(deptime),
-    #     'arrtime':str(arrtime),
-    # }
 
 
     return render(request,'blog/base.html',{"schedules":listOfSchedule})
@@ -189,7 +186,8 @@ def view_journeys(request):
 
     journeys=Booking.objects.filter(customer=customer)
     print(journeys)
-    listOfSchedule=[]
+    pastbookings=[]
+    futurebookings=[]
 
     for journey in journeys:
             schedule_dict = {
@@ -197,11 +195,16 @@ def view_journeys(request):
                 'EndDest':journey.schedule.busId.endDest,
                 'StartTime':journey.schedule.arrTime.strftime("%Y-%m-%d %H:%M:%S"),
                 'EndTime':journey.schedule.depTime.strftime("%Y-%m-%d %H:%M:%S"),
-                'PaasengerName':journey.pasNam,
+                'PassengerName':journey.pasNam,
             }
-            listOfSchedule.append(schedule_dict)
+            start_time=journey.schedule.arrTime
+            
+            if(start_time<datetime.datetime.now(start_time.tzinfo)):
+                pastbookings.append(schedule_dict)
 
+            else:
+                futurebookings.append(schedule_dict)
             # print(listOfSchedule)
 
-    return render(request,'blog/journey.html')
+    return render(request,'blog/journey.html',{"pastjourneys":pastbookings,"futurejourneys":futurebookings})
 
