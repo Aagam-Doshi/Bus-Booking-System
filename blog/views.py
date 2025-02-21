@@ -126,7 +126,7 @@ def login(request):
         print(user)
 
         if user is not None:
-            auth.login(request,user)
+            auth.login(request,user,backend='django.contrib.auth.backends.ModelBackend')
             return redirect("/")
 
     
