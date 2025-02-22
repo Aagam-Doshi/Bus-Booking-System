@@ -1,0 +1,9 @@
+<h1>your wallet amount is {{wallet}}</h1>
+
+<form action="{% url 'wallet'%}" method="post">
+  {% csrf_token %}
+  <input type="number" name="wallet" placeholder="Wallet Amount" required />
+  <button type="submit">Add Money</button>
+</form>
+
+<li><a href="/">home</a></li>
