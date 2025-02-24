@@ -109,7 +109,7 @@ def booking(request,id):
         print(seat_remain)
 
         if booking_obj is not None:
-            return redirect("/")#later redirect to upcoming journeys
+            return redirect("/view-journeys/")#later redirect to upcoming journeys
     
 
 
