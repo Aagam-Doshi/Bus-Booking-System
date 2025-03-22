@@ -90,7 +90,7 @@ def booking(request,id):
     if(request.method=='POST'):
         passname=request.POST.get('passname')
         #wallet check and reduce should be here
-        booking_obj=Booking.objects.create(pasNam=passname,customer=request.user,schedule=detail)
+        
         print(passname)
         # detail.update(seatsRemaining=seat_remain-1)
         if(wallet_amt>=fareprice):
@@ -98,6 +98,8 @@ def booking(request,id):
                 context['error']="Insufficient seats"
                 #seats remaining ke jagah seats book dikhana chahiye
                 return render(request,'blog/booking.html',context)
+            
+            booking_obj=Booking.objects.create(pasNam=passname,customer=request.user,schedule=detail)
             detail.seatsRemaining-=1
             detail.save()
             customer.walletAmt-=fareprice

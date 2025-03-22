@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SITE_ID=2
+SITE_ID=3
 # Application definition
 
 INSTALLED_APPS = [
@@ -101,8 +101,12 @@ WSGI_APPLICATION = 'bus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'aagam',
+        'USER':'postgres',
+        'PASSWORD':'1234',
+        'HOST':'db',
+        'PORT':'5432',
     }
 }
 
