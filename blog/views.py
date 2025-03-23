@@ -3,6 +3,7 @@ from .models import *
 from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth import authenticate
 import datetime
 
 # from .utils import generate_otp, verify_otp
@@ -124,7 +125,7 @@ def login(request):
         username=request.POST.get('username')
         password=request.POST.get('password')
 
-        user=MyUser.objects.get(username=username,password=password)
+        user = authenticate(username=username, password=password)
         print(user)
 
         if user is not None:
