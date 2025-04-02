@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-e186e#ijlj+kxscx_mx$^a(#v*u&6=ut5hbq!lkkmp_y1^=iu@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SITE_ID=4
 # Application definition
@@ -157,12 +157,13 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Use your email provider's SMTP server
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ardoshi25@gmail.com'
-EMAIL_HOST_PASSWORD = 'aagam'
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collectstatic will save files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Your app-specific static files (e.g., CSS)
+]
 
 
 AUTHENTICATION_BACKENDS=(

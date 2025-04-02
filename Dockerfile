@@ -1,5 +1,5 @@
 
-FROM python:3.13  
+FROM python:3.11  
  
 RUN mkdir /app
  
@@ -13,12 +13,16 @@ ENV PYTHONUNBUFFERED=1
  
 
 RUN pip install --upgrade pip 
+RUN pip install gunicorn psycopg2-binary
 
 RUN apt-get update && apt-get install -y libpq-dev gcc && pip install psycopg2
 
- 
+
+
 
 COPY requirements.txt  /app/
+#RUN python manage.py collectstatic --noinput
+
  
 
 RUN pip install  -r requirements.txt
